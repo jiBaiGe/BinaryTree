@@ -1,11 +1,14 @@
 package tree;
 
+import java.util.Stack;
+
 //By ye
 
    class TreeNode {//  Definition for a binary tree node.
      int val;
       TreeNode left;
       TreeNode right;
+      
       TreeNode(int x) { 
     	  val = x;
     	  }
@@ -51,7 +54,7 @@ public class Tree {
 						previous.right = node;
 						break;
 					}
-				}else System.out.println("error,the value already exists");
+				}else break;
 			}
 		}
 		
@@ -72,6 +75,22 @@ public class Tree {
 				}
 			}else current.print(); //x is root.val itself
 		 }
+		}
+		
+		public void Traverse() {
+			System.out.print("«∞–Ú±È¿˙£®µ›πÈ£©: ");
+			preOrderTraverse(root);
+			System.out.println();
+			System.out.print("÷––Ú±È¿˙£®µ›πÈ£©: ");
+			inOrderTraverse(root);
+			System.out.println();
+			System.out.print("∫Û–Ú±È¿˙£®µ›πÈ£©: ");
+			postOrderTraverse(root);
+			System.out.println();
+		}
+		
+		public void TraverserByStack() {
+			System.out.print("«∞–Ú±È¿˙£∫");
 		}
 		
 		public void preOrderTraverse(TreeNode node) {
@@ -103,6 +122,45 @@ public class Tree {
 			}
 			
 		}
+		
+		public void inOrderTraverseByStack() {
+			Stack<TreeNode> stack = new Stack<TreeNode>();
+			TreeNode current = root;
+			while ( current != null || !stack.isEmpty() ) {
+				while (current != null) {
+				stack.push(current);
+				current = current.left;
+				}
+				if(!stack.isEmpty()) {
+					current = stack.pop();
+					current.print();
+					current = current.right;
+				}
+			}
+		}
+		
+		public void postOrderTraverseByStack() {
+			TreeNode current = root;
+			
+			Stack<TreeNode> stack = new Stack<TreeNode>();
+//			while (current != null || !stack.isEmpty()) {
+//				while(current != null) {
+//					stack.push(current);
+//					current = current.left;
+//				}
+//				
+//				if(!stack.isEmpty()) {
+//					current = stack.pop();
+//					stack.push(current);
+//					if (current.right == null) {
+//						stack.pop().print();
+//						
+//					}
+//					current = current.right;
+//				}
+//					
+//			}
+		}
 
 		
 	public static void main(String[] args) {
@@ -115,9 +173,10 @@ public class Tree {
 			myTree.insert(4);
 			myTree.insert(7);
 			myTree.insert(9);
-//			myTree.insert(6);
+//			myTree.insert(2);
 			
-			myTree.inOrderTraverse(myTree.root);
+			myTree.Traverse();
+			
 			
 	}
 
