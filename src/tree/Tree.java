@@ -24,7 +24,7 @@ public class Tree {
 	
 		TreeNode root ;
 		
-		public Tree(){
+		public Tree(){   // 构造一棵树
 			this.root = null;
 			
 		}
@@ -93,6 +93,7 @@ public class Tree {
 			System.out.print("前序遍历：");
 		}
 		
+		//用递归的方式遍历整个二叉树
 		public void preOrderTraverse(TreeNode node) {
 			
 			if(node != null) {
