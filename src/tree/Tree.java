@@ -142,25 +142,32 @@ public class Tree {
 		
 		public void postOrderTraverseByStack() {
 			TreeNode current = root;
-			
+			TreeNode previous = null;
 			Stack<TreeNode> stack = new Stack<TreeNode>();
-//			while (current != null || !stack.isEmpty()) {
-//				while(current != null) {
-//					stack.push(current);
-//					current = current.left;
-//				}
-//				
-//				if(!stack.isEmpty()) {
-//					current = stack.pop();
-//					stack.push(current);
-//					if (current.right == null) {
-//						stack.pop().print();
-//						
-//					}
-//					current = current.right;
-//				}
-//					
-//			}
+			while (current != null || !stack.isEmpty()) {
+		     while(current!=null ) {
+		    	if(previous!=null) { if(current.val == previous.val) {
+		    		previous = stack.pop();
+					stack.push(previous);
+		    		break;}}
+				while(current != null) {
+					stack.push(current);
+					previous = current;
+					current = current.left;
+				}
+				
+				current = previous.right;
+				}
+				if(!stack.isEmpty()) {
+					current = stack.pop();
+					current.print();
+					if(stack.isEmpty()) {break;}
+					current = stack.pop();
+					stack.push(current);
+					current = current.right;
+				}
+					
+			}
 		}
 
 		
@@ -177,6 +184,7 @@ public class Tree {
 //			myTree.insert(2);
 			
 			myTree.Traverse();
+			myTree.postOrderTraverseByStack();
 			
 			
 	}
