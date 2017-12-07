@@ -13,16 +13,18 @@ import java.util.Stack;
     	  val = x;
     	  }
       
-      public void print() {
+      public String print() {
     	  int x = val;
-    	  System.out.print(x);
+    	  return x+"";
       }
       
+  
   }
 
 public class Tree {
 	
 		TreeNode root ;
+		String Tree="";
 		
 		public Tree(){   // 构造一棵树
 			this.root = null;
@@ -77,16 +79,20 @@ public class Tree {
 		 }
 		}
 		
+		public void disTree(String s) {
+			Tree = Tree + s;
+		}
+		
 		public void Traverse() {
 			System.out.print("前序遍历（递归）: ");
 			preOrderTraverse(root);
-			System.out.println();
+			System.out.println(Tree);Tree = "";
 			System.out.print("中序遍历（递归）: ");
 			inOrderTraverse(root);
-			System.out.println();
+			System.out.println(Tree);Tree = "";
 			System.out.print("后序遍历（递归）: ");
 			postOrderTraverse(root);
-			System.out.println();
+			System.out.println(Tree);Tree = "";
 		}
 		
 		public void TraverserByStack() {
@@ -97,7 +103,7 @@ public class Tree {
 		public void preOrderTraverse(TreeNode node) {
 			
 			if(node != null) {
-				node.print();
+				disTree(node.print());;
 				preOrderTraverse(node.left);
 				preOrderTraverse(node.right);
 			}
@@ -108,7 +114,7 @@ public class Tree {
 				
 				if(node != null) {
 					inOrderTraverse(node.left);
-					node.print();
+					disTree(node.print());;
 					inOrderTraverse(node.right);
 				}
 				
@@ -119,12 +125,13 @@ public class Tree {
 			if(node != null) {		
 				postOrderTraverse(node.left);
 				postOrderTraverse(node.right);
-				node.print();
+				disTree(node.print());;
 			}
 			
 		}
 		
 		public void inOrderTraverseByStack() {
+			String s ="";
 			Stack<TreeNode> stack = new Stack<TreeNode>();
 			TreeNode current = root;
 			while ( current != null || !stack.isEmpty() ) {
@@ -134,10 +141,12 @@ public class Tree {
 				}
 				if(!stack.isEmpty()) {
 					current = stack.pop();
-					current.print();
+					s = s + current.print();
+					
 					current = current.right;
 				}
 			}
+			System.out.println(s);
 		}
 		
 		public void postOrderTraverseByStack() {
@@ -169,6 +178,8 @@ public class Tree {
 					
 			}
 		}
+		
+		
 
 		
 	public static void main(String[] args) {
@@ -184,7 +195,7 @@ public class Tree {
 //			myTree.insert(2);
 			
 			myTree.Traverse();
-			myTree.postOrderTraverseByStack();
+			myTree.inOrderTraverseByStack();
 			
 			
 	}
