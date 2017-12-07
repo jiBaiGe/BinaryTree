@@ -2,7 +2,7 @@ package tree;
 
 import java.util.Stack;
 
-//By ye
+//By ye，参考我自己的linkedlist代码写成
 
    class TreeNode {//  Definition for a binary tree node.
      int val;
@@ -13,6 +13,7 @@ import java.util.Stack;
     	  val = x;
     	  }
       
+      //获取节点值的函数
       public String print() {
     	  int x = val;
     	  return x+"";
@@ -24,19 +25,20 @@ import java.util.Stack;
 public class Tree {
 	
 		TreeNode root ;
-		String Tree="";
+		
+		private String Tree="";   //全局变量的方式我自己觉得有点傻，这是我想到的能够存储节点返回值并将整颗树的节点整体全部打印的方法
 		
 		public Tree(){   // 构造一棵树
 			this.root = null;
 			
 		}
 		
-		public void insertRoot(int x) {
+		public void insertRoot(int x) { //手动插入根节点，参考了我自己写的linkedlist的实现方法。
 			TreeNode node = new TreeNode(x);
 			root = node;
 		}
 		
-		public void insert(int x) {
+		public void insert(int x) {   //二叉搜索树的有序插入
 			if(root == null) {return;}
 			TreeNode node = new TreeNode(x);
 			TreeNode current = root;
@@ -60,6 +62,7 @@ public class Tree {
 			}
 		}
 		
+		//和插入的方法类似
 		public void findx(int x) {
 			TreeNode current = root;
 			while(true) {
@@ -79,10 +82,11 @@ public class Tree {
 		 }
 		}
 		
-		public void disTree(String s) {
+		public void disTree(String s) {//能将整棵树的值打印出来的方法，自己想的，感觉很蠢
 			Tree = Tree + s;
 		}
 		
+		//用递归的方式遍历打印二叉搜索树
 		public void Traverse() {
 			System.out.print("前序遍历（递归）: ");
 			preOrderTraverse(root);
@@ -95,11 +99,15 @@ public class Tree {
 			System.out.println(Tree);Tree = "";
 		}
 		
+		//采用非递归的方式遍历
 		public void TraverserByStack() {
-			System.out.print("前序遍历：");
+			System.out.print("中序遍历：");
+			inOrderTraverseByStack();
+			System.out.print("后序遍历：");
+			postOrderTraverseByStack();
 		}
 		
-		//用递归的方式遍历整个二叉树
+		//用递归的方式遍历整个二叉树的3种方式
 		public void preOrderTraverse(TreeNode node) {
 			
 			if(node != null) {
@@ -130,6 +138,7 @@ public class Tree {
 			
 		}
 		
+		//采用Stack方式完成遍历，参考于互联网热心网友
 		public void inOrderTraverseByStack() {
 			String s ="";
 			Stack<TreeNode> stack = new Stack<TreeNode>();
@@ -149,6 +158,7 @@ public class Tree {
 			System.out.println(s);
 		}
 		
+		//理解中序后自己写的后续，不太容易
 		public void postOrderTraverseByStack() {
 			TreeNode current = root;
 			TreeNode previous = null;
@@ -179,7 +189,25 @@ public class Tree {
 			}
 		}
 		
-		
+		//判断2个二叉树是否为完全相同的两个二叉搜索树，采用递归方式，参考于Leetcode。com网友
+		  public boolean isSameTree(TreeNode p, TreeNode q) {
+		       if (p == null && q == null){
+		           return true;
+		       }
+		       if (p == null && q != null){
+		           return false;
+		       }
+		        if(p != null && q == null){
+		            return false;
+		        }
+		        if(p.val != q.val){
+		            return false;
+		        }
+		        
+		        return isSameTree(p.left,q.left) && isSameTree(p.right,q.right);
+		            
+		           
+		    }
 
 		
 	public static void main(String[] args) {
@@ -196,6 +224,16 @@ public class Tree {
 			
 			myTree.Traverse();
 			myTree.inOrderTraverseByStack();
+			Tree yourTree = new Tree();
+			yourTree.insertRoot(5);
+			yourTree.insert(3);
+			yourTree.insert(8);
+			yourTree.insert(2);
+			yourTree.insert(4);
+			yourTree.insert(7);
+			yourTree.insert(9);
+			yourTree.insert(6);
+			System.out.println(myTree.isSameTree(myTree.root, yourTree.root));
 			
 			
 	}
