@@ -26,7 +26,7 @@ public class Tree {
 	
 		TreeNode root ;
 		
-		private String Tree="";   //全局变量的方式我自己觉得有点傻，这是我想到的能够存储节点返回值并将整颗树的节点整体全部打印的方法
+		private String Tree="";   //全局变量的方式我自己觉得有点傻，这是我想到的能够在递归函数外存储节点返回值并将整颗树的节点整体全部打印的方法
 		
 		public Tree(){   // 构造一棵树
 			this.root = null;
@@ -104,7 +104,8 @@ public class Tree {
 			System.out.print("中序遍历：");
 			inOrderTraverseByStack();
 			System.out.print("后序遍历：");
-			postOrderTraverseByStack();
+			postOrderTraverseByStack();;
+			
 		}
 		
 		//用递归的方式遍历整个二叉树的3种方式
@@ -160,6 +161,7 @@ public class Tree {
 		
 		//理解中序后自己写的后续，不太容易
 		public void postOrderTraverseByStack() {
+			String s = "";
 			TreeNode current = root;
 			TreeNode previous = null;
 			Stack<TreeNode> stack = new Stack<TreeNode>();
@@ -179,7 +181,7 @@ public class Tree {
 				}
 				if(!stack.isEmpty()) {
 					current = stack.pop();
-					current.print();
+					s = s + current.print();
 					if(stack.isEmpty()) {break;}
 					current = stack.pop();
 					stack.push(current);
@@ -187,6 +189,7 @@ public class Tree {
 				}
 					
 			}
+			System.out.println(s);
 		}
 		
 		//判断2个二叉树是否为完全相同的两个二叉搜索树，采用递归方式，参考于Leetcode。com网友
@@ -223,7 +226,7 @@ public class Tree {
 //			myTree.insert(2);
 			
 			myTree.Traverse();
-			myTree.inOrderTraverseByStack();
+//			myTree.inOrderTraverseByStack();
 			Tree yourTree = new Tree();
 			yourTree.insertRoot(5);
 			yourTree.insert(3);
@@ -233,6 +236,7 @@ public class Tree {
 			yourTree.insert(7);
 			yourTree.insert(9);
 			yourTree.insert(6);
+			yourTree.TraverserByStack();
 			System.out.println(myTree.isSameTree(myTree.root, yourTree.root));
 			
 			
