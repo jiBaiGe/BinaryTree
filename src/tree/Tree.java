@@ -101,6 +101,8 @@ public class Tree {
 		
 		//采用非递归的方式遍历
 		public void TraverserByStack() {
+			System.out.print("前序遍历：");
+			preOrderTraverseByStack();
 			System.out.print("中序遍历：");
 			inOrderTraverseByStack();
 			System.out.print("后序遍历：");
@@ -139,7 +141,28 @@ public class Tree {
 			
 		}
 		
+		
+		
 		//采用Stack方式完成遍历，参考于互联网热心网友
+		public void preOrderTraverseByStack() {
+			String s = "";
+			Stack<TreeNode> stack = new Stack<TreeNode>();
+			TreeNode current = root;
+			while ( current != null || !stack.isEmpty()) {
+				while (current != null) {
+				stack.push(current);
+				s += current.print();
+				current = current.left;				
+				}
+			
+			if (!stack.isEmpty()) {
+				current = stack.pop();
+				current = current.right;
+			}
+			}
+			System.out.println(s);
+		}
+		
 		public void inOrderTraverseByStack() {
 			String s ="";
 			Stack<TreeNode> stack = new Stack<TreeNode>();
