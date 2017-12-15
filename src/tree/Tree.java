@@ -182,7 +182,7 @@ public class Tree {
 			System.out.println(s);
 		}
 		
-		//理解中序后自己写的后续，不太容易
+		//理解中序后自己写的后续，第一次尝试，思路不够清晰，代码没有网上精简
 		public void postOrderTraverseByStack() {
 			String s = "";
 			TreeNode current = root;
@@ -190,10 +190,15 @@ public class Tree {
 			Stack<TreeNode> stack = new Stack<TreeNode>();
 			while (current != null || !stack.isEmpty()) {
 		     while(current!=null ) {
-		    	if(previous!=null) { if(current.val == previous.val) {
-		    		previous = stack.pop();
-					stack.push(previous);
-		    		break;}}
+		    	if(previous!=null) {
+		    		
+		    		//判断现在要访问的节点是否已经访问过，如果访问过，则不在访问，break，在break之前，将
+		    		//previous设置为stack顶端元素。
+		    		if(current.val == previous.val) {  
+		    		previous = stack.peek();				
+		    		break;}
+		    		}
+		    	
 				while(current != null) {
 					stack.push(current);
 					previous = current;
@@ -206,8 +211,7 @@ public class Tree {
 					current = stack.pop();
 					s = s + current.print();
 					if(stack.isEmpty()) {break;}
-					current = stack.pop();
-					stack.push(current);
+					current = stack.peek();
 					current = current.right;
 				}
 					
