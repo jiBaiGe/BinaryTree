@@ -2,7 +2,15 @@ package tree;
 
 import java.util.Stack;
 
-//By ye，参考我自己的linkedlist代码写成
+/*By ye，参考我自己的linkedlist代码写成
+ * 包含：1。创建树。
+ *     2.插入根节点    : void insertRoot(int x); 
+ *     3.插入节点 : void insertRoot(int x);
+ *     4.搜索节点: void findx();
+ *     5.三种遍历方式(前序，中序，后续)的递归实现。
+ *     6。三种遍历方式(前序，中序，后续)的非递归实现(stack)。
+ *     7.判断2棵二叉树是否相同 :  boolean isSameTree(TreeNode p, TreeNode q);
+ */
 
    class TreeNode {//  Definition for a binary tree node.
      int val;
@@ -253,7 +261,7 @@ public class Tree {
 //			myTree.insert(2);
 			
 			myTree.Traverse();
-//			myTree.inOrderTraverseByStack();
+
 			Tree yourTree = new Tree();
 			yourTree.insertRoot(5);
 			yourTree.insert(3);
