@@ -2,7 +2,7 @@ package tree;
 
 import java.util.Stack;
 
-/*By ye，参考我自己的linkedlist代码写成
+/*By ye，参考我自己的linkedlist代码以及教材写成
  * 包含：1。创建树。
  *     2.插入根节点    : void insertRoot(int x); 
  *     3.插入节点 : void insertRoot(int x);
@@ -10,6 +10,7 @@ import java.util.Stack;
  *     5.三种遍历方式(前序，中序，后续)的递归实现。
  *     6。三种遍历方式(前序，中序，后续)的非递归实现(stack)。
  *     7.判断2棵二叉树是否相同 :  boolean isSameTree(TreeNode p, TreeNode q);
+ *     8.求熟的最大高度： int maxDepth(TreeNode node);
  */
 
    class TreeNode {//  Definition for a binary tree node.
@@ -30,7 +31,7 @@ import java.util.Stack;
   
   }
 
-public class Tree {
+   public class Tree {
 	
 		TreeNode root ;
 		
@@ -94,17 +95,21 @@ public class Tree {
 			Tree = Tree + s;
 		}
 		
+		public void printTree() {
+			System.out.println(Tree);Tree = "";
+		}
+		
 		//用递归的方式遍历打印二叉搜索树
 		public void Traverse() {
 			System.out.print("前序遍历（递归）: ");
 			preOrderTraverse(root);
-			System.out.println(Tree);Tree = "";
+			printTree();
 			System.out.print("中序遍历（递归）: ");
 			inOrderTraverse(root);
-			System.out.println(Tree);Tree = "";
+			printTree();
 			System.out.print("后序遍历（递归）: ");
 			postOrderTraverse(root);
-			System.out.println(Tree);Tree = "";
+			printTree();
 		}
 		
 		//采用非递归的方式遍历
@@ -223,9 +228,9 @@ public class Tree {
 					current = current.right;
 				}
 					
-			}
+			 }
 			System.out.println(s);
-		}
+		  }
 		
 		//判断2个二叉树是否为完全相同的两个二叉搜索树，采用递归方式，参考于Leetcode。com网友
 		  public boolean isSameTree(TreeNode p, TreeNode q) {
@@ -242,11 +247,19 @@ public class Tree {
 		            return false;
 		        }
 		        
-		        return isSameTree(p.left,q.left) && isSameTree(p.right,q.right);
-		            
-		           
-		    }
+		        return isSameTree(p.left,q.left) && isSameTree(p.right,q.right);		           
+		   }
 
+		//求熟的最大高度，思路来自树的后续遍历（递归），无参考。
+	     public int maxDepth(TreeNode node) {
+	        if(node == null) {
+	        	return 0;
+	        }
+	        	int rightdepth = maxDepth(node.left);
+	        	int leftdepth = maxDepth(node.right);
+	        	return (rightdepth > leftdepth)?(rightdepth+1):(leftdepth+1);
+	       }
+	
 		
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -272,7 +285,9 @@ public class Tree {
 			yourTree.insert(9);
 			yourTree.insert(6);
 			yourTree.TraverserByStack();
-			System.out.println(myTree.isSameTree(myTree.root, yourTree.root));
+			System.out.println("两棵树是否相同? :"+myTree.isSameTree(myTree.root, yourTree.root));
+			
+			System.out.println("树的最大高度为 "+myTree.maxDepth(myTree.root));
 			
 			
 	}
