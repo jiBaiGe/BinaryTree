@@ -1,5 +1,6 @@
 package tree;
 
+import java.util.LinkedList;
 import java.util.Stack;
 
 /*By ye，参考我自己的linkedlist代码以及教材写成
@@ -10,7 +11,8 @@ import java.util.Stack;
  *     5.三种遍历方式(前序，中序，后续)的递归实现。
  *     6。三种遍历方式(前序，中序，后续)的非递归实现(stack)。
  *     7.判断2棵二叉树是否相同 :  boolean isSameTree(TreeNode p, TreeNode q);
- *     8.求熟的最大高度： int maxDepth(TreeNode node);
+ *     8.求熟的最大高度 : int maxDepth(TreeNode node);
+ *     9.二叉树的层次遍历(利用Linkedlist实现队列) : void levelOrderTraverse();
  */
 
    class TreeNode {//  Definition for a binary tree node.
@@ -232,6 +234,29 @@ import java.util.Stack;
 			System.out.println(s);
 		  }
 		
+		//二叉树的层次遍历，利用Linkedkist实现队列。
+		public void levelOrderTraversal() {
+			String s = "";
+			TreeNode current = root;
+			LinkedList<TreeNode> queue = new LinkedList<TreeNode>();
+			if(current == null) {
+				return;
+			}
+			queue.offer(current);
+			while( !queue.isEmpty() ) {
+				current = queue.poll();
+				s  += current.val;
+				if(current.left != null) {
+					queue.offer(current.left);
+				}
+				if(current.right != null) {
+					queue.offer(current.right);
+				}
+			}
+			
+			System.out.println("层序遍历："+s);
+		}
+		
 		//判断2个二叉树是否为完全相同的两个二叉搜索树，采用递归方式，参考于Leetcode。com网友
 		  public boolean isSameTree(TreeNode p, TreeNode q) {
 		       if (p == null && q == null){
@@ -288,6 +313,7 @@ import java.util.Stack;
 			System.out.println("两棵树是否相同? :"+myTree.isSameTree(myTree.root, yourTree.root));
 			
 			System.out.println("树的最大高度为 "+myTree.maxDepth(myTree.root));
+			myTree.levelOrderTraversal();
 			
 			
 	}
