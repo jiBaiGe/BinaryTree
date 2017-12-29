@@ -10,9 +10,10 @@ import java.util.Stack;
  *     4.搜索节点: void findx();
  *     5.三种遍历方式(前序，中序，后续)的递归实现。
  *     6。三种遍历方式(前序，中序，后续)的非递归实现(stack)。
- *     7.判断2棵二叉树是否相同 :  boolean isSameTree(TreeNode p, TreeNode q);
- *     8.求熟的最大高度 : int maxDepth(TreeNode node);
- *     9.二叉树的层次遍历(利用Linkedlist实现队列) : void levelOrderTraverse();
+ *     7.二叉树的层次遍历(利用Linkedlist实现队列) : void levelOrderTraverse();
+ *     8.判断2棵二叉树是否相同 :  boolean isSameTree(TreeNode p, TreeNode q);
+ *     9.求熟的最大高度 : int maxDepth(TreeNode node);
+ *     10.操作给定的二叉树，将其变换为源二叉树的镜像。public void Mirror(TreeNode root);
  */
 
    class TreeNode {//  Definition for a binary tree node.
@@ -284,6 +285,38 @@ import java.util.Stack;
 	        	int leftdepth = maxDepth(node.right);
 	        	return (rightdepth > leftdepth)?(rightdepth+1):(leftdepth+1);
 	       }
+	     
+	     //操作给定的二叉树，将其变换为源二叉树的镜像
+	     public void Mirror(TreeNode root) {	    	 
+	         Stack<TreeNode> stack = new Stack<TreeNode>();
+	         TreeNode temp = null;
+	         TreeNode current = root;
+	         //利用栈遍历整个二叉树
+	         while (current != null || !stack.isEmpty() ) {
+	        	 while (current != null) {
+	        		 //如果当前节点左右儿子皆不为null，则交换这两个节点。
+	        		  if(current.left != null && current.right != null) { 
+		        			 temp = current.left;
+		        			 current.left = current.right;
+		        			 current.right = temp;
+		        		 }else  		//若有左儿子没有右儿子
+		        		   if(current.left == null && current.right != null) {
+		        			  current.left = current.right;
+		        			  current.right = null;
+		        		  }else			//若有右儿子没有左er子
+			        		  if(current.left != null && current.right == null) {
+			        			  current.right = current.left;
+			        			  current.left = null;
+			        		  }
+		        	 stack.push(current);
+		        	 current = current.left;
+	        	 }
+		        	 if (!stack.isEmpty()) {
+		        		 current = stack.pop();
+		        		 current = current.right;
+		        	 }
+	         }
+	     }
 	
 		
 	public static void main(String[] args) {
@@ -314,7 +347,8 @@ import java.util.Stack;
 			
 			System.out.println("树的最大高度为 "+myTree.maxDepth(myTree.root));
 			myTree.levelOrderTraversal();
-			
+			myTree.Mirror(myTree.root);
+			myTree.levelOrderTraversal();
 			
 	}
 
