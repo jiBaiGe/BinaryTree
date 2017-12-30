@@ -303,7 +303,7 @@ import java.util.Stack;
 		        		   if(current.left == null && current.right != null) {
 		        			  current.left = current.right;
 		        			  current.right = null;
-		        		  }else			//若有右儿子没有左er子
+		        		  }else			//若有右儿子没有左儿子
 			        		  if(current.left != null && current.right == null) {
 			        			  current.right = current.left;
 			        			  current.left = null;
@@ -323,7 +323,7 @@ import java.util.Stack;
 		// TODO Auto-generated method stub
 			Tree myTree = new Tree();
 			myTree.insertRoot(5);
-			myTree.insert(3);
+		 	myTree.insert(3);
 			myTree.insert(8);
 			myTree.insert(2);
 			myTree.insert(4);
