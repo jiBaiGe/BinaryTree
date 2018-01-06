@@ -14,6 +14,7 @@ import java.util.Stack;
  *     8.判断2棵二叉树是否相同 :  boolean isSameTree(TreeNode p, TreeNode q);
  *     9.求熟的最大高度 : int maxDepth(TreeNode node);
  *     10.操作给定的二叉树，将其变换为源二叉树的镜像。public void Mirror(TreeNode root);
+ *     11.输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构 :HasSubtree(TreeNode root1,TreeNode root2);
  */
 
    class TreeNode {//  Definition for a binary tree node.
@@ -316,6 +317,41 @@ import java.util.Stack;
 		        		 current = current.right;
 		        	 }
 	         }
+	     }
+	     
+	     //输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构)
+	     //首先想到的思路，遍历A树，直到遍历到某一个和B树相等的节点，开始每轮AB树一起遍历，直到B树结束。
+	     //或者将AB树分别遍历，并直接存入字符串，判断是否为子字符串；
+	     public boolean HasSubtree(TreeNode root1,TreeNode root2) {
+	    	 Stack<TreeNode> stack1 = new Stack<TreeNode>();
+	    	 Stack<TreeNode> stack2 = new Stack<TreeNode>();
+	    	 boolean match = false;
+	    	 TreeNode current1 = root1;
+	    	 TreeNode current2 = root2;
+	    	 while (root1 !=null  || !stack1.isEmpty()) {
+	    		 while (root1 != null) {
+	    			 stack1.push(current1);
+	    			 if(current1.val == current2.val) {match = true;}
+	    			 if(match && current2 != null) {
+	    				 
+	    				 stack2.push(current2);
+	    				 current2 = current2.left;
+	    			 }
+	    			 current1 = current1.left;
+	    		 }
+	    		 if(!stack1.isEmpty()) {
+	    			 current1 = stack1.pop();
+	    			 if(match &&!stack2.isEmpty()) {
+	    				 current2 = stack2.pop();
+	    				 if(current1.val != current2.val) {return false;}
+	    				 current2 = current2.right;
+	    			 }
+	    			 current1 = current1.right;
+	    			 
+	    		 }
+	    	 }
+	    	 
+	         return true;
 	     }
 	
 		
